@@ -1,0 +1,225 @@
+<svg xmlns="http://www.w3.org/2000/svg" onload="makeDraggable(evt)">
+
+    <style>
+
+      .static {
+        cursor: not-allowed;
+      }
+      .draggable, .draggable-group {
+        cursor: move;
+      }
+
+      .lru {
+        fill: yellowgreen;
+      }
+
+	rect {
+
+		//fill:rgb(146, 208, 80);
+		//fill:url(#grad1);
+		fill:white;
+		//filter:url(#f1);
+		stroke:black;
+		stroke-width:5
+
+	}
+
+	.lru:hover {
+
+		fill:cyan;
+
+	}
+
+  	.port {
+
+		fill:cyan;
+		stroke-width:4;
+	
+	}
+
+  	.port:hover {
+
+		fill: blue;
+	
+	}
+
+	.boxname {
+
+
+      		font: bold 24px sans-serif;
+		fill: black;
+
+	}
+
+	.mate {
+
+		fill: blue;
+
+	}
+
+	.mate:hover {
+
+		fill: purple;
+
+	}
+
+    </style>
+
+    
+    <script type="text/javascript"><![CDATA[
+      function makeDraggable(evt) {
+        var svg = evt.target;
+
+        svg.addEventListener('mousedown', startDrag);
+        svg.addEventListener('mousemove', drag);
+        svg.addEventListener('mouseup', endDrag);
+        svg.addEventListener('mouseleave', endDrag);
+        svg.addEventListener('touchstart', startDrag);
+        svg.addEventListener('touchmove', drag);
+        svg.addEventListener('touchend', endDrag);
+        svg.addEventListener('touchleave', endDrag);
+        svg.addEventListener('touchcancel', endDrag);
+
+        function getMousePosition(evt) {
+          var CTM = svg.getScreenCTM();
+          if (evt.touches) { evt = evt.touches[0]; }
+          return {
+            x: (evt.clientX - CTM.e) / CTM.a,
+            y: (evt.clientY - CTM.f) / CTM.d
+          };
+        }
+
+        var selectedElement, offset, transform;
+
+        function initialiseDragging(evt) {
+            offset = getMousePosition(evt);
+
+            // Make sure the first transform on the element is a translate transform
+            var transforms = selectedElement.transform.baseVal;
+
+            if (transforms.length === 0 || transforms.getItem(0).type !== SVGTransform.SVG_TRANSFORM_TRANSLATE) {
+              // Create an transform that translates by (0, 0)
+              var translate = svg.createSVGTransform();
+              translate.setTranslate(0, 0);
+              selectedElement.transform.baseVal.insertItemBefore(translate, 0);
+            }
+
+            // Get initial translation
+            transform = transforms.getItem(0);
+            offset.x -= transform.matrix.e;
+            offset.y -= transform.matrix.f;
+        }
+
+        function startDrag(evt) {
+          if (evt.target.classList.contains('draggable')) {
+            selectedElement = evt.target;
+            initialiseDragging(evt);
+          } else if (evt.target.parentNode.classList.contains('draggable-group')) {
+            selectedElement = evt.target.parentNode;
+            initialiseDragging(evt);
+          }
+        }
+
+        function drag(evt) {
+          if (selectedElement) {
+            evt.preventDefault();
+            var coord = getMousePosition(evt);
+            transform.setTranslate(coord.x - offset.x, coord.y - offset.y);
+          }
+        }
+
+        function endDrag(evt) {
+          selectedElement = false;
+        }
+      }
+    ]]> </script>
+    
+
+	<g class = "draggable-group" id = "RDM3-1">
+
+		<rect class = "lru" id = "RDM3-1" width="150" height="150" x="10" y="10"/>
+
+		<svg width="150" height="150" x="10" y="10">
+
+			<text class = "boxname" x="50%" y="50%" alignment-baseline="middle" text-anchor="middle">RDM3-1</text>      
+
+		</svg>
+
+  			<rect class = "port" width= "20" height = "20" x="150" y="25"/>
+  			<rect class = "port" width= "20" height = "20" x="150" y="75"/>
+  			<rect class = "port" width= "20" height = "20" x="150" y="125"/>
+
+	</g>
+
+
+
+	<g class = "draggable-group" id = "PDU">
+	
+		<rect class = "lru" id = "PDU" width="50" height="250" x="250" y="100">
+
+		</rect>
+
+		<svg width="50" height="250" x="250" y="100">
+
+		<text 
+			class = "boxname"
+			x="50%"
+			y="50%"
+			alignment-baseline="middle"
+			text-anchor="middle"
+			style="writing-mode: tb;"
+
+		>PDU</text>      
+
+		</svg>
+
+  		<rect class = "port" width= "20" height = "20" x="240" y="140"/>
+  		<rect class = "port" width= "20" height = "20" x="240" y="190"/>
+  		<rect class = "port" width= "20" height = "20" x="240" y="240"/>
+  		<rect class = "port" width= "20" height = "20" x="240" y="290"/>
+
+  		<rect class = "port" width= "20" height = "20" x="290" y="140"/>
+
+	</g>
+
+	<g class = "draggable-group" id = "DCMG1">
+
+		<rect class = "lru" id = "DCMG1" width="175" height="175" x="750" y="100" pointer-events="visiblePainted"</rect>
+
+		<svg width="175" height="175" height="250" x="750" y="100">
+
+		<text 
+		class = "boxname"
+		x="50%"
+		y="50%"
+		alignment-baseline="middle"
+		text-anchor="middle";
+
+		>DCMG1</text>
+
+		</svg>
+
+  		<rect class = "port" id = "J104" width= "20" height = "20" x="740" y="125"/>
+  		<rect class = "port" id = "J124" width= "20" height = "20" x="740" y="160"/>
+  		<rect class = "port" id = "J134" width= "20" height = "20" x="740" y="195"/>
+  		<rect class = "port" id = "J107" width= "20" height = "20" x="740" y="230"/>
+
+  		<rect class = "port" id = "J105" width= "20" height = "20" x="912.5" y="125"/>
+  		<rect class = "port" id = "J126" width= "20" height = "20" x="912.5" y="160"/>
+  		<rect class = "port" id = "J137" width= "20" height = "20" x="912.5" y="195"/>
+  		<rect class = "port" id = "J117" width= "20" height = "20" x="912.5" y="230"/>
+
+		<circle class = "hole" cx = "775" cy = "130" r = "10"><title>.50 UNC</title></circle>
+		<circle class = "hole" cx = "900" cy = "130" r = "10"><title>.50 UNC</title></circle>
+		<circle class = "hole" cx = "775" cy = "245" r = "10"><title>.50 UNC</title></circle>
+		<circle class = "hole" cx = "900" cy = "245" r = "10"><title>.50 UNC</title></circle>
+
+		<polyline class = "groundstrap" points="900, 120 900, 75"/>
+
+		<polyline class = "groundstrap" points="775, 252.5 775, 295"/>
+
+		<polygon class = "bolt" points="787.5, 130 781.25, 119.175 768.75, 119.175 762.5, 130 768.75, 140.825 781.25, 140.825"/>
+
+	</g>
+
+</svg>
